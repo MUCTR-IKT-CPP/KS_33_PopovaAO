@@ -42,33 +42,11 @@ void printProfiles(SocialMediaProfile* profiles, int n) {
  * @return строка-имя пользователя
  */
 string randomUsername(int index) {
-    string names[] = {
-        "Alice", "Bob", "Charlie", "Diana", "Eve",
-        "Frank", "Grace", "Henry", "Ivy", "Jack",
-        "Kate", "Liam", "Mia", "Noah", "Olivia",
-        "Peter", "Quinn", "Rose", "Sam", "Tina"
-    };
-    return names[rand() % 20] + "_" + to_string(index);
+    string names[] = {"Alice", "Dima", "Diana", "Kirill", "Arina", "Maria", "Kate", "Peter", "Victor"};
+    int count = sizeof(names) / sizeof(names[0]);
+    return names[rand() % count] + "_" + to_string(index);
 }
 
-/*
- * Выделение памяти под n профилей
- *
- * @param n - количество профилей
- * @return указатель на массив
- */
-SocialMediaProfile* allocateProfiles(int n) {
-    return new SocialMediaProfile[n];
-}
-
-/*
- * Освобождение памяти
- *
- * @param profiles - массив профилей
- */
-void freeProfiles(SocialMediaProfile* profiles) {
-    delete[] profiles;
-}
 
 /*
  * Заполнение массива случайными данными
@@ -264,6 +242,7 @@ int askChoice() {
     return choice;
 }
 
+
 int main() {
     srand(time(0));
 
@@ -272,11 +251,11 @@ int main() {
     cin >> n;
 
     if (n < 1) {
-        cout << "N must be positive.\n";
+        cout << "N must be positive\n";
         return 1;
     }
 
-    SocialMediaProfile* profiles = allocateProfiles(n);
+    SocialMediaProfile* profiles = new SocialMediaProfile[n];
     fillRandom(profiles, n);
 
     cout << "\nGenerated profiles:\n";
@@ -304,10 +283,10 @@ int main() {
             sendNotifications(profiles, n);
         }
         else {
-            cout << "Unknown choice.\n";
+            cout << "Unknown choice\n";
         }
     }
 
-    freeProfiles(profiles);
+    delete[] profiles;
     return 0;
 }
